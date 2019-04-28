@@ -9,57 +9,81 @@ public class Main {
         int result;
         char operator;
         Roman roman = new Roman();
+        String[] parts;
 
-        System.out.println("number: ");
+        System.out.println("Введите арифметическую операцию: ");
 
         try {
         String s1 = scanner.nextLine();
 
-        // Разделяем предметы друг от друга
-        String delimiter = " ";
-        String[] subStr = s1.split(delimiter);
+            // Проверяем какую операцию нужно сделать
+            // Разделяем строку на 1 и 2 значения
+
+            if (s1.contains("-")) {
+                parts = s1.split("-");
+                String part1 = parts[0];
+                operator = '-';
+                String part2 = parts[1];
+            } else if(s1.contains("+")) {
+                parts = s1.split("\\+");
+                String part1 = parts[0];
+                operator = '+';
+                String part2 = parts[1];
+            } else if(s1.contains("*")) {
+                parts = s1.split("\\*");
+                String part1 = parts[0];
+                operator = '*';
+                String part2 = parts[1];
+            } else if(s1.contains("/")) {
+                parts = s1.split("/");
+                String part1 = parts[0];
+                operator = '/';
+                String part2 = parts[1];
+            } else {
+                throw new IllegalArgumentException("Неверная арифметическая операция.");
+            }
+
+
 
         // Проверяем, арабские или латинские символы ввели
-        if(     subStr[0].equals("I") | subStr[0].equals("II") | subStr[0].equals("III") |
-                subStr[0].equals("IV" ) | subStr[0].equals("VI") | subStr[0].equals("VII") |
-                subStr[0].equals("VIII") | subStr[0].equals("IX") | subStr[0].equals("X") |
-                subStr[1].equals("I") | subStr[1].equals("II") | subStr[1].equals("III") |
-                subStr[1].equals("IV" ) | subStr[1].equals("VI") | subStr[1].equals("VII") |
-                subStr[1].equals("VIII") | subStr[1].equals("IX") | subStr[1].equals("X")){
+        if(     parts[0].equals("I") | parts[0].equals("II") | parts[0].equals("III") |
+                parts[0].equals("IV" ) | parts[0].equals("VI") | parts[0].equals("VII") |
+                parts[0].equals("VIII") | parts[0].equals("IX") | parts[0].equals("X") |
+                parts[1].equals("I") | parts[1].equals("II") | parts[1].equals("III") |
+                parts[1].equals("IV" ) | parts[1].equals("VI") | parts[1].equals("VII") |
+                parts[1].equals("VIII") | parts[1].equals("IX") | parts[1].equals("X")){
 
-            n1 = roman.decode(subStr[0]);
-            operator = subStr[1].charAt(0);
-            n2 = roman.decode(subStr[2]);
-            System.out.println("n1Rim "+ n1);
-            System.out.println("operator " + operator);
-            System.out.println("n2Rim "+ n2);
+            n1 = roman.decode(parts[0]);
+            n2 = roman.decode(parts[1]);
+        //    System.out.println("n1Rim "+ n1);
+        //    System.out.println("operator " + operator);
+        //    System.out.println("n2Rim "+ n2);
         }
         else {
-            n1 = Integer.parseInt(subStr[0]);
-            operator = subStr[1].charAt(0);
-            n2 = Integer.parseInt(subStr[2]);
+            n1 = Integer.parseInt(parts[0]);
+            n2 = Integer.parseInt(parts[1]);
 
-            System.out.println("n1 " + n1);
-            System.out.println("operator " + operator);
-            System.out.println("n2 " + n2);
+        //    System.out.println("n1 " + n1);
+        //    System.out.println("operator " + operator);
+        //    System.out.println("n2 " + n2);
         }
 
         // Производим операцию
         if (operator == '+') {
             result = (n1 + n2);
-            System.out.println("result: " + result);
+            System.out.println("Результат: " + result);
         }
         else if (operator == '-') {
             result = (n1 - n2);
-            System.out.println("result: " + result);
+            System.out.println("Результат: " + result);
         }
         else if (operator == '*') {
             result = (n1 * n2);
-            System.out.println("result: " + result);
+            System.out.println("Результат: " + result);
         }
         else if (operator == '/') {
             result = (n1/n2);
-            System.out.println("result: " + result);
+            System.out.println("Результат: " + result);
         }
         else {
             System.out.println("Неверный оператор!");
@@ -68,7 +92,6 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Exeption!");
         }
-
     }
 
 
