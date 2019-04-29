@@ -55,17 +55,10 @@ public class Main {
 
             n1 = roman.decode(parts[0]);
             n2 = roman.decode(parts[1]);
-        //    System.out.println("n1Rim "+ n1);
-        //    System.out.println("operator " + operator);
-        //    System.out.println("n2Rim "+ n2);
         }
         else {
             n1 = Integer.parseInt(parts[0]);
             n2 = Integer.parseInt(parts[1]);
-
-        //    System.out.println("n1 " + n1);
-        //    System.out.println("operator " + operator);
-        //    System.out.println("n2 " + n2);
         }
 
         // Производим операцию
