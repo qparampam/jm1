@@ -1,7 +1,7 @@
 class Roman {
 
     // Присваиваем каждому римскому символу, арабский
-    private static int decodeSingle(char letter) {
+    private int decodeSingle(char letter) {
         switch (letter) {
             case 'M':
                 return 1000;
@@ -23,7 +23,7 @@ class Roman {
     }
 
     // Принимаем string и проходимся по списку свеху
-    public static int decode(String roman) {
+    public int decode(String roman) {
         int result = 0;
         String uRoman = roman.toUpperCase();
         for (int i = 0; i < uRoman.length() - 1; i++) {

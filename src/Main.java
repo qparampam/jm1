@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -6,81 +8,55 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         int n1, n2;
-        int result;
         char operator;
         Roman roman = new Roman();
+        RomanNum romanNum = new RomanNum();
+        Calculator calculator = new Calculator();
         String[] parts;
 
         System.out.println("Введите арифметическую операцию: ");
 
         try {
-        String s1 = scanner.nextLine();
+            String s1 = scanner.nextLine();
 
             // Проверяем какую операцию нужно сделать
             // Разделяем строку на 1 и 2 значения
-
             if (s1.contains("-")) {
                 parts = s1.split("-");
-                String part1 = parts[0];
                 operator = '-';
-                String part2 = parts[1];
             } else if(s1.contains("+")) {
                 parts = s1.split("\\+");
-                String part1 = parts[0];
                 operator = '+';
-                String part2 = parts[1];
             } else if(s1.contains("*")) {
                 parts = s1.split("\\*");
-                String part1 = parts[0];
                 operator = '*';
-                String part2 = parts[1];
             } else if(s1.contains("/")) {
                 parts = s1.split("/");
-                String part1 = parts[0];
                 operator = '/';
-                String part2 = parts[1];
             } else {
                 throw new IllegalArgumentException("Неверная арифметическая операция.");
             }
 
+            // Проверяем, арабские или латинские символы ввели
+            Pattern p = Pattern.compile("[IVX]");
+            Matcher m1 = p.matcher(parts[0]);
+            Matcher m2 = p.matcher(parts[1]);
 
+            boolean b = m1.matches() || m2.matches();
 
-        // Проверяем, арабские или латинские символы ввели
-        if(     parts[0].equals("I") | parts[0].equals("II") | parts[0].equals("III") |
-                parts[0].equals("IV" ) | parts[0].equals("VI") | parts[0].equals("VII") |
-                parts[0].equals("VIII") | parts[0].equals("IX") | parts[0].equals("X") |
-                parts[1].equals("I") | parts[1].equals("II") | parts[1].equals("III") |
-                parts[1].equals("IV" ) | parts[1].equals("VI") | parts[1].equals("VII") |
-                parts[1].equals("VIII") | parts[1].equals("IX") | parts[1].equals("X")){
+            // Производим расчет и выводим на экран
+            if(b){
+                n1 = roman.decode(parts[0]);
+                n2 = roman.decode(parts[1]);
 
-            n1 = roman.decode(parts[0]);
-            n2 = roman.decode(parts[1]);
-        }
-        else {
-            n1 = Integer.parseInt(parts[0]);
-            n2 = Integer.parseInt(parts[1]);
-        }
+                System.out.println(romanNum.toRoman(calculator.arithmetic(n1,n2,operator)));
+            }
+            else {
+                n1 = Integer.parseInt(parts[0]);
+                n2 = Integer.parseInt(parts[1]);
 
-        // Производим операцию
-        if (operator == '+') {
-            result = (n1 + n2);
-            System.out.println("Результат: " + result);
-        }
-        else if (operator == '-') {
-            result = (n1 - n2);
-            System.out.println("Результат: " + result);
-        }
-        else if (operator == '*') {
-            result = (n1 * n2);
-            System.out.println("Результат: " + result);
-        }
-        else if (operator == '/') {
-            result = (n1/n2);
-            System.out.println("Результат: " + result);
-        }
-        else {
-            System.out.println("Неверный оператор!");
-        }
+                System.out.println(calculator.arithmetic(n1,n2,operator));
+            }
 
         } catch (Exception e) {
             System.out.println("Exeption!");
