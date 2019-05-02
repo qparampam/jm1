@@ -22,7 +22,7 @@ class Roman {
         }
     }
 
-    // Принимаем string и проходимся по списку свеху
+    // Принимаем string и проходимся по списку сверху
     public int decode(String roman) {
         int result = 0;
         String uRoman = roman.toUpperCase();

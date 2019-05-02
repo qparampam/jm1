@@ -1,35 +1,31 @@
-import java.util.TreeMap;
-
 public class RomanNum {
 
     // Присваиваем каждому арабскому символу, римский
-    private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+    enum Numeral {
+        I(1), IV(4), V(5), IX(9), X(10), XL(40), L(50), XC(90), C(100), CD(400), D(500), CM(900), M(1000);
+        int weight;
 
-    static {
-
-        map.put(1000, "M");
-        map.put(900, "CM");
-        map.put(500, "D");
-        map.put(400, "CD");
-        map.put(100, "C");
-        map.put(90, "XC");
-        map.put(50, "L");
-        map.put(40, "XL");
-        map.put(10, "X");
-        map.put(9, "IX");
-        map.put(5, "V");
-        map.put(4, "IV");
-        map.put(1, "I");
-
+        Numeral(int weight) {
+            this.weight = weight;
+        }
     }
 
-    // Принимаем арабский символ и проходимся по map сверху
-    public String toRoman(int number) {
-        int l =  map.floorKey(number);
-        if ( number == l ) {
-            return map.get(number);
+    public String convertToRoman(int n) {
+
+        if( n <= 0) {
+            throw new IllegalArgumentException();
         }
-        return map.get(l) + toRoman(number-l);
+
+        StringBuilder buf = new StringBuilder();
+
+        final Numeral[] values = Numeral.values();
+        for (int i = values.length - 1; i >= 0; i--) {
+            while (n >= values[i].weight) {
+                buf.append(values[i]);
+                n -= values[i].weight;
+            }
+        }
+        return buf.toString();
     }
 
 }
