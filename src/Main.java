@@ -13,30 +13,47 @@ public class Main {
         RomanNum romanNum = new RomanNum();
         Calculator calculator = new Calculator();
         String[] parts;
+        String[] keys = {"-", "+", "*", "/"};
 
         System.out.println("Введите арифметическую операцию: ");
 
-    //    try {
+        try {
             String s1 = scanner.nextLine();
             String s1mod = s1.replaceAll("\\s","");
 
-            // Проверяем какую операцию нужно сделать
-            // Разделяем строку на 1 и 2 значения
-            if (s1mod.contains("-")) {
-                parts = s1mod.split("-");
-                operator = '-';
-            } else if(s1mod.contains("+")) {
-                parts = s1mod.split("\\+");
-                operator = '+';
-            } else if(s1mod.contains("*")) {
-                parts = s1mod.split("\\*");
-                operator = '*';
-            } else if(s1mod.contains("/")) {
-                parts = s1mod.split("/");
-                operator = '/';
-            } else {
-                throw new IllegalArgumentException("Неверная арифметическая операция.");
+
+
+            // Проверяем какую операцию нужно совершить
+            String match = "default";
+            for (int i = 0; i < keys.length; i++) {
+                if (s1mod.contains(keys[i])) {
+                    match = keys[i];
+                    break;
+                }
             }
+
+            // Разделяем строку на 1 и 2 число
+            switch (match) {
+                case "-":
+                    parts = s1mod.split("-");
+                    operator = '-';
+                    break;
+                case "+":
+                    parts = s1mod.split("\\+");
+                    operator = '+';
+                    break;
+                case "*":
+                    parts = s1mod.split("\\*");
+                    operator = '*';
+                    break;
+                case "/":
+                    parts = s1mod.split("/");
+                    operator = '/';
+                    break;
+                default:
+                    throw new IllegalArgumentException("Неверная арифметическая операция.");
+            }
+
 
             // Проверяем, арабские или латинские символы ввели
             Pattern p = Pattern.compile("^[MDCLXVI]+$");
@@ -45,7 +62,6 @@ public class Main {
 
             boolean b = m1.matches() || m2.matches();
 
-        System.out.println(b);
 
             // Производим расчет и выводим на экран
             if(b){
@@ -61,9 +77,9 @@ public class Main {
                 System.out.println(calculator.arithmetic(n1,n2,operator));
             }
 
-    //    } catch (Exception e) {
-    //        System.out.println("Exeption!");
-    //    }
+        } catch (Exception e) {
+            System.out.println("Exeption!");
+        }
     }
 
 

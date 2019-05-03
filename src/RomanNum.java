@@ -10,10 +10,12 @@ public class RomanNum {
         }
     }
 
+
+    // Проходимся по списку сверху
     public String convertToRoman(int n) {
 
         if( n <= 0) {
-            throw new IllegalArgumentException();
+            System.out.println("0");
         }
 
         StringBuilder buf = new StringBuilder();
